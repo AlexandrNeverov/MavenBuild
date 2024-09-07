@@ -1,10 +1,26 @@
 name: MavenBuild
-run-name: Test
+run-name: Test - Trigger Jenkins Job
 
-on: [push]
+on:
+  push:
+    branches: ["main"]
 
 jobs:
-  main:
+  build_test:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Job Main is exicuting"
+    - name: Job Info
+      run: echo "Job is executing as part of workflow - Alexander Neverov"
+
+    - uses: actions/checkout@v4
+
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.7.0
+      with:
+        checkout-fetch-depth: 0
+        java-version: 17
+        java-distribution: temurin
+        maven-version: 3.9.8
+    - name: Test with Maven
+      run: mvn -B test --file pom.xml    
