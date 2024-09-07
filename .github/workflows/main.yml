@@ -22,5 +22,10 @@ jobs:
         java-version: 17
         java-distribution: temurin
         maven-version: 3.9.8
+        
     - name: Test with Maven
-      run: mvn -B test --file pom.xml    
+      run: mvn -B test --file pom.xml
+
+    - name: Remote trigger Jenkins job
+      run: sudo curl -I -u 116c33431659a404940a96a59305eb41a6 https://657c-170-103-40-174.ngrok-free.app/job/demodeploy/build?token=token123 
+      
